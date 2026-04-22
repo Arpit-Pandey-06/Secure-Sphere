@@ -1,0 +1,17 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.136.0",
+    "motor>=3.7.1",
+    "pwdlib[argon2]>=0.3.0",
+    "pydantic-settings>=2.14.0",
+    "pydantic[email]>=2.13.3",
+    "pyjwt>=2.12.1",
+    "python-dotenv>=1.2.2",
+    "python-multipart>=0.0.26",
+    "uvicorn>=0.45.0",
+]

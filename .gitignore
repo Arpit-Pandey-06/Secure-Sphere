@@ -1,0 +1,31 @@
+# -----------------
+# OS files
+# -----------------
+.DS_Store
+
+# -----------------
+# Backend (FastAPI / Python / uv)
+# -----------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual envs (important)
+.venv/
+venv/
+env/
+
+# Env files
+.env
+
+# -----------------
+# Frontend (React)
+# -----------------
+node_modules/
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*

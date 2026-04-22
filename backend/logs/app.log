@@ -1,0 +1,6 @@
+2026-04-22 23:40:46,451 - SecureSphere - INFO - New user registered: user@example.com
+2026-04-22 23:46:50,041 - SecureSphere - INFO - User logged in: user@example.com
+2026-04-22 23:52:16,609 - SecureSphere - INFO - User logged in: user@example.com
+2026-04-22 23:59:58,695 - SecureSphere - INFO - New user registered: john@example.com
+2026-04-23 00:00:03,484 - SecureSphere - INFO - User logged in: john@example.com
+2026-04-23 00:56:00,941 - SecureSphere - INFO - BLOCKED: Domain pornhub.com found in Database Blacklist.

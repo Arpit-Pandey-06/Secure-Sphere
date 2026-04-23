@@ -1,7 +1,0 @@
-{
-  "manifest_version": 3,
-  "name": "SecureSphere Agent Pro",
-  "permissions": ["declarativeNetRequest", "tabs", "webNavigation", "storage"],
-  "host_permissions": ["<all_urls>", "http://localhost:8000/*"],
-  "background": { "service_worker": "background.js" }
-}

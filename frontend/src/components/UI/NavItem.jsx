@@ -1,31 +1,40 @@
-import { theme } from "../../styles/theme";
-
-export default function NavItem({ icon, label, active, onClick }) {
+export default function NavItem({ icon, label, active, onClick, colors }) {
   return (
-    <button
+    <div
       onClick={onClick}
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 10,
+        gap: 12,
         padding: "10px 16px",
-        borderRadius: 6,
-        border: "none",
-        background: active ? theme.accentGlow : "transparent",
-        color: active ? theme.accent : theme.textSecondary,
+        borderRadius: 8,
         cursor: "pointer",
-        width: "100%",
-        textAlign: "left",
-        fontSize: 13,
-        fontFamily: "'Syne',sans-serif",
-        fontWeight: active ? 600 : 400,
-        transition: "all 0.2s",
-        borderLeft: active
-          ? `2px solid ${theme.accent}`
-          : "2px solid transparent",
+        transition: "all 0.2s ease",
+        background: active ? colors.accentGlow : "transparent",
+        borderLeft: active ? `3px solid ${colors.accent}` : "3px solid transparent",
+        marginBottom: 4,
+      }}
+      onMouseEnter={(e) => {
+        if (!active) e.currentTarget.style.background = colors.bgPanel;
+      }}
+      onMouseLeave={(e) => {
+        if (!active) e.currentTarget.style.background = "transparent";
+      }}
+    >
+      <span style={{ 
+        fontSize: 16, 
+        color: active ? colors.accent : colors.textSecondary 
       }}>
-      <span style={{ fontSize: 16 }}>{icon}</span>
-      {label}
-    </button>
+        {icon}
+      </span>
+      <span style={{ 
+        fontSize: 14, 
+        fontWeight: active ? 600 : 400, 
+        color: active ? colors.textPrimary : colors.textSecondary, // Critical fix for visibility
+        fontFamily: "'Syne', sans-serif"
+      }}>
+        {label}
+      </span>
+    </div>
   );
 }

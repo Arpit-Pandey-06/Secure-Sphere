@@ -4,3 +4,17 @@
 2026-04-22 23:59:58,695 - SecureSphere - INFO - New user registered: john@example.com
 2026-04-23 00:00:03,484 - SecureSphere - INFO - User logged in: john@example.com
 2026-04-23 00:56:00,941 - SecureSphere - INFO - BLOCKED: Domain pornhub.com found in Database Blacklist.
+2026-04-23 18:21:59,266 - SecureSphere - ERROR - Login attempt failed for: user@gmail.com
+2026-04-23 18:22:10,441 - SecureSphere - ERROR - Login attempt failed for: user@example.com
+2026-04-23 19:12:18,472 - SecureSphere - INFO - New user registered: arpit@gmail.com
+2026-04-23 19:12:22,189 - SecureSphere - INFO - User logged in: arpit@gmail.com
+2026-04-23 22:06:55,886 - SecureSphere - INFO - URL Scan completed for www.google.com: safe
+2026-04-23 22:07:38,639 - SecureSphere - INFO - User logged in: arpit@gmail.com
+2026-04-23 22:09:52,413 - SecureSphere - INFO - BLOCKED: Domain pornhub.com found in Database Blacklist.
+2026-04-23 22:11:34,210 - SecureSphere - INFO - URL Scan completed for www.malcious.com: safe
+2026-04-23 23:41:29,289 - SecureSphere - INFO - BLOCKED: Domain milfnut.com found in Database Blacklist.
+2026-04-23 23:42:37,002 - SecureSphere - INFO - BLOCKED: Keywords ['jav'] detected in URL.
+2026-04-23 23:44:27,579 - SecureSphere - INFO - BLOCKED: Keywords ['jav'] detected in URL.
+2026-04-23 23:47:45,147 - SecureSphere - INFO - BLOCKED: Keywords ['porn'] detected in URL.
+2026-04-23 23:48:07,372 - SecureSphere - INFO - BLOCKED: Keywords ['porn'] detected in URL.
+2026-04-24 00:04:58,280 - SecureSphere - INFO - BLOCKED: Keywords ['porn'] detected in URL.

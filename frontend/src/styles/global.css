@@ -3,6 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
 }
 body {
   background: #0f172a;
@@ -79,4 +80,29 @@ select {
 }
 .mono {
   font-family: "JetBrains Mono", monospace;
+}
+
+/* Professional Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+/* Sophisticated Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+/* Glassmorphism for Cards in Light Mode */
+.card-glass {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }

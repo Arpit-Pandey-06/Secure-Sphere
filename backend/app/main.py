@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth , scanner , nsfw
+from app.api import auth , scanner , nsfw,dashboard,threats
 from app.db.mongodb import connect_to_mongo, close_mongo_connection,seed_nsfw_data
 from contextlib import asynccontextmanager
 
@@ -26,6 +26,8 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(scanner.router, prefix="/api/scan", tags=["Scanner"])
 app.include_router(nsfw.router,prefix="/api/nsfw",tags=["NSFW"])
+app.include_router(dashboard.router,prefix="/api/dashboard",tags=["DashBoard"])
+app.include_router(threats.router,prefix="/api/threats",tags=["Threats"])
 
 @app.get("/health")
 def health_check():

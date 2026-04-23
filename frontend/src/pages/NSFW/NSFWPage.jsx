@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { theme } from "../../styles/theme";
 import StatCard from "../../components/UI/StatCard";
+import api from "../../services/api"; // Use your configured axios instance
 
-export default function NSFWPage({ token }) {
+export default function NSFWPage() {
   const [enabled, setEnabled] = useState(true);
   const [strictMode, setStrictMode] = useState(false);
-  const [blockedCount] = useState(47);
+  const [blockedCount, setBlockedCount] = useState(0); // Synchronized state
   const [url, setUrl] = useState("");
   const [checking, setChecking] = useState(false);
   const [checkResult, setCheckResult] = useState(null);
 
-  const API_BASE = "http://localhost:8000/api";
+  // 1. Fetch live stats and settings from the backend on load
+  useEffect(() => {
+    const fetchNSFWData = async () => {
+      try {
+        const res = await api.get("/nsfw/stats");
+        setBlockedCount(res.data.blocked_today);
+        setEnabled(res.data.status === "ON");
+        setStrictMode(res.data.mode === "STRICT");
+      } catch (err) {
+        console.error("Failed to sync NSFW stats:", err);
+      }
+    };
+    fetchNSFWData();
+  }, []);
 
   const checkURL = async () => {
     if (!url) return;
@@ -18,32 +32,26 @@ export default function NSFWPage({ token }) {
     setCheckResult(null);
 
     try {
-      // 1. Pointing to the real FastAPI endpoint we just built
-      const res = await fetch(`${API_BASE}/nsfw/check`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Pass the JWT token for security
-        },
-        // 2. Sending data as a JSON object to match the Pydantic model
-        body: JSON.stringify({ 
-          url: url,
-          strict_mode: strictMode 
-        }),
+      // 2. Use Axios for the deterministic check
+      const res = await api.post("/nsfw/check", { 
+        url: url,
+        strict_mode: strictMode 
       });
-
-      if (!res.ok) throw new Error("Backend connection failed");
-
-      const data = await res.json();
-      setCheckResult(data);
+      
+      setCheckResult(res.data);
+      
+      // Update local count if blocked to show immediate feedback
+      if (res.data.blocked) {
+        setBlockedCount(prev => prev + 1);
+      }
     } catch (error) {
-      console.error("Scan Error:", error);
-      // Optional: fallback logic if backend is down
+      console.error("Content Safety Scan Error:", error);
       setCheckResult({
         url,
         blocked: true,
-        category: "Error: Backend Offline",
+        category: "System Error",
         confidence: 0,
+        details: "Could not reach the classification engine."
       });
     } finally {
       setChecking(false);
@@ -52,7 +60,6 @@ export default function NSFWPage({ token }) {
 
   return (
     <div className="fade-in">
-      {/* ... (Keep your existing Header and StatCards exactly as they are) ... */}
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 11, color: theme.textSecondary, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 2, marginBottom: 4 }}>
           CONTENT SAFETY
@@ -66,6 +73,7 @@ export default function NSFWPage({ token }) {
         <StatCard label="Mode" value={strictMode ? "STRICT" : "NORMAL"} color={strictMode ? theme.amber : theme.accent} icon="⚡" />
       </div>
 
+      {/* FILTER SETTINGS PANEL */}
       <div style={{ background: theme.bgCard, border: `1px solid ${theme.border}`, borderRadius: 8, padding: 24, marginBottom: 12 }}>
         <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 16 }}>Filter Settings</div>
         {[
@@ -87,6 +95,7 @@ export default function NSFWPage({ token }) {
         ))}
       </div>
 
+      {/* URL CLASSIFIER PANEL */}
       <div style={{ background: theme.bgCard, border: `1px solid ${theme.border}`, borderRadius: 8, padding: 24 }}>
         <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 12 }}>Check a URL</div>
         <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
